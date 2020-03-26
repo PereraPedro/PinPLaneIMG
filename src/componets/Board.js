@@ -5,8 +5,8 @@ import { useDropzone } from "react-dropzone";
 
 const Board = () => {
   const [buttonState, setButtonState] = useState(false);
-  const [currentIMG, setCurrentImg] = useState("img");
-  const [dropIMG, setDropIMG] = useState(" ");
+  const [currentIMG, setCurrentImg] = useState("");
+  const [dropIMG, setDropIMG] = useState("");
   const [srcImg, setSrcImg] = useState("");
 
   ////////////////////DROP ZONE////////////////////////////////////
@@ -46,15 +46,26 @@ const Board = () => {
   /////////////////////////////////////////////////////////
 
   ///////////////////////////////////////////////////////
-  const saveIMG = () => {
+  const saveIMG = current => {
     console.log("CUrrent img " + currentIMG + "  drop img " + dropIMG);
-    console.log(currentIMG);
-    if (dropIMG == "" || currentIMG != "") {
-      let string = currentIMG.split("\\");
-      console.log(string[string.length - 1]);
+    console.log(current);
 
+    if (dropIMG == "" || currentIMG != "") {
+      if (current != "") {
+        let string = current.split("\\");
+
+        console.log(string[string.length - 1]);
+        setSrcImg("./img/" + string[string.length - 1]);
+      } else {
+        setSrcImg(currentIMG);
+        console.log(srcImg);
+      }
+
+      /* let string = current.split("\\");
+
+      console.log(string[string.length - 1]);
       setSrcImg("./img/" + string[string.length - 1]);
-      console.log(srcImg);
+      console.log(srcImg); */
 
       setButtonState(false);
     } else if (currentIMG == "" || dropIMG != "") {
@@ -106,7 +117,7 @@ const Board = () => {
               </div>
             )}
           </div>
-          <a className="waves-effect waves-light deep-purple lighten-1 flotar">
+          <div className="waves-effect waves-light deep-purple lighten-1 flotar">
             {!buttonState ? (
               <p
                 className="material-icons"
@@ -120,13 +131,13 @@ const Board = () => {
               <p
                 className="material-icons"
                 onClick={() => {
-                  saveIMG();
+                  saveIMG(currentIMG);
                 }}
               >
                 Save
               </p>
             )}
-          </a>
+          </div>
         </div>
       </div>
       <Drag ref={drag} opacity={isDragging ? "0.5" : "1"}></Drag>

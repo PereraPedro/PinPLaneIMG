@@ -18,15 +18,21 @@
 
 .flotar {
   position: absolute;
-  top: 0;
+  top: 2px;
   right: 10px;
   border-radius: 5px;
-  box-shadow: 10px 20px 30px black;
+  box-shadow: 1px 1px black;
   color: aliceblue;
   font-size: 15px;
-  text-align: center;
 
-  font-weight: 700;
+  width: 40px;
+  height: 30px;
+  font-weight: 900;
+}
+.flotar * {
+  text-align: center;
+  margin: 0 auto;
+  padding-top: 7px;
 }
 .card-image {
   border: 6px dotter rgba(109, 9, 94, 0.64);
