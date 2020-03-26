@@ -5,8 +5,8 @@ import { useDropzone } from "react-dropzone";
 
 const Board = () => {
   const [buttonState, setButtonState] = useState(false);
-  const [currentIMG, setCurrentImg] = useState("img.png");
-  const [dropIMG, setDropIMG] = useState("");
+  const [currentIMG, setCurrentImg] = useState("img");
+  const [dropIMG, setDropIMG] = useState(" ");
   const [srcImg, setSrcImg] = useState("");
 
   ////////////////////DROP ZONE////////////////////////////////////
@@ -17,6 +17,7 @@ const Board = () => {
     console.log(acceptedFiles);
 
     setDropIMG("./img/" + string[string.length - 1]);
+    setCurrentImg("");
   }, []);
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
@@ -45,22 +46,22 @@ const Board = () => {
   /////////////////////////////////////////////////////////
 
   ///////////////////////////////////////////////////////
-  const saveIMG = current => {
+  const saveIMG = () => {
     console.log("CUrrent img " + currentIMG + "  drop img " + dropIMG);
-    console.log(current);
-    if (current != " " || current != undefined) {
+    console.log(currentIMG);
+    if (dropIMG == "" || currentIMG != "") {
       let string = currentIMG.split("\\");
-      console.log(string);
+      console.log(string[string.length - 1]);
 
       setSrcImg("./img/" + string[string.length - 1]);
       console.log(srcImg);
-      setDropIMG("");
+
       setButtonState(false);
-    }
-    if (dropIMG != " " || dropIMG != undefined) {
+    } else if (currentIMG == "" || dropIMG != "") {
       setButtonState(false);
+      console.log("entrada asdasdasd");
       setSrcImg(dropIMG);
-      setCurrentImg("");
+      // setCurrentImg("");
     }
   };
   ////////////////////////////////////////////////
@@ -81,7 +82,9 @@ const Board = () => {
         <div className="card">
           <div className="card-image">
             {!buttonState ? (
-              <img src={srcImg}></img>
+              <img
+                src={srcImg == "" ? "./img/default_image.png" : srcImg}
+              ></img>
             ) : (
               <div className="fileSelectors">
                 <input
@@ -117,7 +120,7 @@ const Board = () => {
               <p
                 className="material-icons"
                 onClick={() => {
-                  saveIMG(currentIMG);
+                  saveIMG();
                 }}
               >
                 Save
