@@ -61,12 +61,6 @@ const Board = () => {
         console.log(srcImg);
       }
 
-      /* let string = current.split("\\");
-
-      console.log(string[string.length - 1]);
-      setSrcImg("./img/" + string[string.length - 1]);
-      console.log(srcImg); */
-
       setButtonState(false);
     } else if (currentIMG == "" || dropIMG != "") {
       setButtonState(false);
