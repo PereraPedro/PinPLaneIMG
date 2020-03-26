@@ -5,17 +5,16 @@ import { useDropzone } from "react-dropzone";
 
 const Board = () => {
   const [buttonState, setButtonState] = useState(false);
-  const [currentIMG, setCurrentImg] = useState("");
+  const [currentIMG, setCurrentImg] = useState("img.png");
   const [dropIMG, setDropIMG] = useState("");
   const [srcImg, setSrcImg] = useState("");
-  var src = "";
 
   ////////////////////DROP ZONE////////////////////////////////////
 
   const onDrop = useCallback(acceptedFiles => {
     // Do something with the files
     let string = acceptedFiles[0].name.split("\\");
-    console.log(acceptedFiles[0].name);
+    console.log(acceptedFiles);
 
     setDropIMG("./img/" + string[string.length - 1]);
   }, []);
@@ -44,22 +43,24 @@ const Board = () => {
   });
 
   /////////////////////////////////////////////////////////
-  useEffect(() => {
-    src = "./img/" + srcImg;
-    console.log(src);
-  }, [srcImg]);
+
   ///////////////////////////////////////////////////////
-  const saveIMG = () => {
-    if (dropIMG != "" || dropIMG != undefined) {
+  const saveIMG = current => {
+    console.log("CUrrent img " + currentIMG + "  drop img " + dropIMG);
+    console.log(current);
+    if (current != " " || current != undefined) {
+      let string = currentIMG.split("\\");
+      console.log(string);
+
+      setSrcImg("./img/" + string[string.length - 1]);
+      console.log(srcImg);
+      setDropIMG("");
+      setButtonState(false);
+    }
+    if (dropIMG != " " || dropIMG != undefined) {
       setButtonState(false);
       setSrcImg(dropIMG);
-    } else {
-      if (currentIMG != " " || currentIMG != undefined) {
-        let string = currentIMG.split("\\");
-
-        setSrcImg("./img/" + string[string.length - 1]);
-      }
-      setButtonState(false);
+      setCurrentImg("");
     }
   };
   ////////////////////////////////////////////////
@@ -78,18 +79,28 @@ const Board = () => {
     <div>
       <div className="container" ref={drop}>
         <div className="card">
-          <div className="card-image" {...getRootProps()}>
+          <div className="card-image">
             {!buttonState ? (
               <img src={srcImg}></img>
             ) : (
-              <input
-                {...getInputProps()}
-                type="file"
-                name="img"
-                onChange={e => {
-                  setCurrentImg(e.target.value);
-                }}
-              ></input>
+              <div className="fileSelectors">
+                <input
+                  type="file"
+                  name="img"
+                  onChange={e => {
+                    setCurrentImg(e.target.value);
+                  }}
+                ></input>
+                <div className="imgcontainer" {...getRootProps()}>
+                  {isDragActive ? (
+                    <p>Drop your image here</p>
+                  ) : (
+                    <p>You can drop a file</p>
+                  )}
+
+                  <div className="DropZone" {...getInputProps()}></div>
+                </div>
+              </div>
             )}
           </div>
           <a className="btn-floating halfway-fab waves-effect waves-light red flotar">
@@ -106,7 +117,7 @@ const Board = () => {
               <p
                 className="material-icons"
                 onClick={() => {
-                  saveIMG();
+                  saveIMG(currentIMG);
                 }}
               >
                 Save

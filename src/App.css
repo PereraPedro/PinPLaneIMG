@@ -39,3 +39,10 @@
   text-align: center;
   margin: 0 auto;
 }
+.imgcontainer {
+  border: 1px dotted gray;
+  height: 200px;
+  width: 200px;
+  margin: 0 auto;
+  background-color: rgba(170, 157, 166, 0.64);
+}
