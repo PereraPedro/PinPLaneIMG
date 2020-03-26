@@ -1,10 +1,7 @@
-.App {
-}
-
 .container {
   width: 100%;
-  height: 400px;
-  border: 1px solid red;
+  height: 500px;
+  border: 1px solid rgba(109, 9, 94, 0.64);
   border-radius: 30px;
   text-align: center;
   margin: 0 auto;
@@ -22,9 +19,17 @@
 .flotar {
   position: absolute;
   top: 0;
+  right: 10px;
+  border-radius: 5px;
+  box-shadow: 10px 20px 30px black;
+  color: aliceblue;
+  font-size: 15px;
+  text-align: center;
+
+  font-weight: 700;
 }
 .card-image {
-  border: 6px dotter black;
+  border: 6px dotter rgba(109, 9, 94, 0.64);
   align-content: center;
   margin: 60px;
   height: 200px;
@@ -44,5 +49,5 @@
   height: 200px;
   width: 200px;
   margin: 0 auto;
-  background-color: rgba(170, 157, 166, 0.64);
+  background-color: rgba(170, 157, 168, 0.64);
 }

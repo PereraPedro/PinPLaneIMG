@@ -106,7 +106,7 @@ const Board = () => {
               </div>
             )}
           </div>
-          <a className="btn-floating halfway-fab waves-effect waves-light red flotar">
+          <a className="waves-effect waves-light deep-purple lighten-1 flotar">
             {!buttonState ? (
               <p
                 className="material-icons"
