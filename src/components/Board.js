@@ -1,7 +1,14 @@
-import React, { useState, useRef, useEffect, useCallback } from "react";
-import { useDrag, useDrop, DropTarget } from "react-dnd";
+import React, { useState, useCallback } from "react";
+import { useDrag, useDrop } from "react-dnd";
 import styled from "styled-components";
 import { useDropzone } from "react-dropzone";
+
+const Drag = styled.div`
+background-color: black;
+height: 100px;
+width: 100px;
+border: 1px dotted red;
+`;
 
 const Board = () => {
   const [buttonState, setButtonState] = useState(false);
@@ -9,33 +16,26 @@ const Board = () => {
   const [dropIMG, setDropIMG] = useState("");
   const [srcImg, setSrcImg] = useState("");
 
-  ////////////////////DROP ZONE////////////////////////////////////
-
   const onDrop = useCallback(acceptedFiles => {
-    // Do something with the files
+    
     let string = acceptedFiles[0].name.split("\\");
-    console.log(acceptedFiles);
-
+    
     setDropIMG("./img/" + string[string.length - 1]);
     setCurrentImg("");
   }, []);
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
-  ///////////////////////////////////////////////////
-
-  ///////////////////////////////////////////////////////////////////
   const ItemTypes = {
     Image: "image"
   };
-  ////////////////////////////DND DRAG ///////////////////////////////////
+  
   const [{ isDragging }, drag] = useDrag({
     item: { type: ItemTypes.Image },
     collect: monitor => ({
       isDragging: !!monitor.isDragging()
     })
   });
-  //////////////////////////////////////////////////////////////
-
+  
   const [{ isOver }, drop] = useDrop({
     accept: ItemTypes.Image,
     collect: monitor => ({
@@ -43,44 +43,27 @@ const Board = () => {
     })
   });
 
-  /////////////////////////////////////////////////////////
-
-  ///////////////////////////////////////////////////////
   const saveIMG = current => {
-    console.log("CUrrent img " + currentIMG + "  drop img " + dropIMG);
-    console.log(current);
 
     if (dropIMG == "" || currentIMG != "") {
       if (current != "") {
         let string = current.split("\\");
-
-        console.log(string[string.length - 1]);
         setSrcImg("./img/" + string[string.length - 1]);
       } else {
         setSrcImg(currentIMG);
-        console.log(srcImg);
       }
 
       setButtonState(false);
     } else if (currentIMG == "" || dropIMG != "") {
       setButtonState(false);
-      console.log("entrada asdasdasd");
       setSrcImg(dropIMG);
-      // setCurrentImg("");
     }
   };
-  ////////////////////////////////////////////////
+  
   const editIMG = () => {
     setButtonState(true);
   };
-  /////////////////////////////////////////////
-  const Drag = styled.div`
-    background-color: black;
-    height: 100px;
-    width: 100px;
-    border: 1px dotted red;
-  `;
-  //////////////////////////////////////////////////
+ 
   return (
     <div>
       <div className="container" ref={drop}>
@@ -89,6 +72,7 @@ const Board = () => {
             {!buttonState ? (
               <img
                 src={srcImg == "" ? "./img/default_image.png" : srcImg}
+                alt=""
               ></img>
             ) : (
               <div className="fileSelectors">

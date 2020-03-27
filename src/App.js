@@ -1,7 +1,7 @@
 import React from "react";
 
 import "./App.css";
-import Board from "./componets/Board";
+import Board from "./components/Board";
 import { DndProvider } from "react-dnd";
 import Backend from "react-dnd-html5-backend";
 
