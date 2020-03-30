@@ -1,14 +1,5 @@
 import React, { useState, useCallback } from "react";
-import { useDrag, useDrop } from "react-dnd";
-import styled from "styled-components";
 import { useDropzone } from "react-dropzone";
-
-const Drag = styled.div`
-background-color: black;
-height: 100px;
-width: 100px;
-border: 1px dotted red;
-`;
 
 const Board = () => {
   const [buttonState, setButtonState] = useState(false);
@@ -25,21 +16,10 @@ const Board = () => {
   }, []);
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
-  const ItemTypes = {
-    Image: "image"
-  };
-
-  const [{ isDragging }, drag] = useDrag({
-    item: { type: ItemTypes.Image },
-    collect: monitor => ({
-      isDragging: !!monitor.isDragging()
-    })
-  });
-
   const saveIMG = current => {
 
-    if (dropIMG == "" || currentIMG != "") {
-      if (current != "") {
+    if (dropIMG === "" || currentIMG !== "") {
+      if (current !== "") {
         let string = current.split("\\");
         setSrcImg("./img/" + string[string.length - 1]);
       } else {
@@ -47,7 +27,7 @@ const Board = () => {
       }
 
       setButtonState(false);
-    } else if (currentIMG == "" || dropIMG != "") {
+    } else if (currentIMG === "" || dropIMG !== "") {
       setButtonState(false);
       setSrcImg(dropIMG);
     }
@@ -66,7 +46,7 @@ const Board = () => {
           <div className="card-image">
             {!buttonState ? (
               <img
-                src={srcImg == "" ? "./img/default_image.png" : srcImg}
+                src={srcImg === "" ? "./img/default_image.png" : srcImg}
                 alt=""
               ></img>
             ) : (
@@ -112,7 +92,6 @@ const Board = () => {
           </div>
         </div>
       </div>
-    
     </div>
   );
 };
