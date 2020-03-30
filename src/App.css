@@ -1,19 +1,12 @@
-.container {
-  width: 100%;
-  height: 500px;
-  border: 1px solid rgba(109, 9, 94, 0.64);
-  border-radius: 30px;
-  text-align: center;
-  margin: 0 auto;
-}
-
 .card {
+  display: flex;
   margin: 0 auto;
   margin-top: 40px;
   border: 2px solid grey;
   width: 300px;
   height: 300px;
   position: relative;
+  align-items: center;
 }
 
 .flotar {
@@ -24,7 +17,6 @@
   box-shadow: 1px 1px black;
   color: aliceblue;
   font-size: 15px;
-
   width: 40px;
   height: 30px;
   font-weight: 900;
@@ -37,8 +29,11 @@
 .card-image {
   border: 6px dotter rgba(109, 9, 94, 0.64);
   align-content: center;
-  margin: 60px;
-  height: 200px;
+  align-items: center;
+  margin: 0 auto;
+  width: 200px;
+  height: 250px;
+  display: flex;
 }
 .material-icons {
   height: 30px;
@@ -51,9 +46,28 @@
   margin: 0 auto;
 }
 .imgcontainer {
-  border: 1px dotted gray;
+  border: 1.5px gray;
+  border-style: dashed;
   height: 200px;
   width: 200px;
   margin: 0 auto;
   background-color: rgba(170, 157, 168, 0.64);
+  align-content: center;
+}
+
+p {
+  align-content: center;
+  text-align: center;
+}
+img {
+  margin: 0 auto;
+  vertical-align: middle;
+}
+
+input {
+  width: 200px;
+}
+
+.fileSelectors{
+  margin-top: 25px;
 }

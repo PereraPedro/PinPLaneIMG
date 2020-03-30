@@ -17,9 +17,9 @@ const Board = () => {
   const [srcImg, setSrcImg] = useState("");
 
   const onDrop = useCallback(acceptedFiles => {
-    
+
     let string = acceptedFiles[0].name.split("\\");
-    
+
     setDropIMG("./img/" + string[string.length - 1]);
     setCurrentImg("");
   }, []);
@@ -28,18 +28,11 @@ const Board = () => {
   const ItemTypes = {
     Image: "image"
   };
-  
+
   const [{ isDragging }, drag] = useDrag({
     item: { type: ItemTypes.Image },
     collect: monitor => ({
       isDragging: !!monitor.isDragging()
-    })
-  });
-  
-  const [{ isOver }, drop] = useDrop({
-    accept: ItemTypes.Image,
-    collect: monitor => ({
-      isOver: !!monitor.isOver()
     })
   });
 
@@ -59,14 +52,16 @@ const Board = () => {
       setSrcImg(dropIMG);
     }
   };
-  
+
   const editIMG = () => {
+    setDropIMG("");
+    setCurrentImg("");
     setButtonState(true);
   };
- 
+
   return (
     <div>
-      <div className="container" ref={drop}>
+      <div className="container">
         <div className="card">
           <div className="card-image">
             {!buttonState ? (
@@ -75,25 +70,24 @@ const Board = () => {
                 alt=""
               ></img>
             ) : (
-              <div className="fileSelectors">
-                <input
-                  type="file"
-                  name="img"
-                  onChange={e => {
-                    setCurrentImg(e.target.value);
-                  }}
-                ></input>
-                <div className="imgcontainer" {...getRootProps()}>
-                  {isDragActive ? (
-                    <p>Drop your image here</p>
-                  ) : (
-                    <p>You can drop a file</p>
-                  )}
-
-                  <div className="DropZone" {...getInputProps()}></div>
+                <div className="fileSelectors">
+                  <input
+                    type="file"
+                    name="img"
+                    onChange={e => {
+                      setCurrentImg(e.target.value);
+                    }}
+                  ></input>
+                  <div className="imgcontainer" {...getRootProps()}>
+                    {isDragActive ? (
+                      <p>Drop your image here</p>
+                    ) : (<div>
+                      {(dropIMG !== "") ? (<img src={dropIMG} alt=""></img>) : (<p>You can drop an image</p>)}
+                    </div>)}
+                    <div className="DropZone" {...getInputProps()}></div>
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
           </div>
           <div className="waves-effect waves-light deep-purple lighten-1 flotar">
             {!buttonState ? (
@@ -106,19 +100,19 @@ const Board = () => {
                 Edit
               </p>
             ) : (
-              <p
-                className="material-icons"
-                onClick={() => {
-                  saveIMG(currentIMG);
-                }}
-              >
-                Save
-              </p>
-            )}
+                <p
+                  className="material-icons"
+                  onClick={() => {
+                    saveIMG(currentIMG);
+                  }}
+                >
+                  Save
+                </p>
+              )}
           </div>
         </div>
       </div>
-      <Drag ref={drag} opacity={isDragging ? "0.5" : "1"}></Drag>
+    
     </div>
   );
 };
