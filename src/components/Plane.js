@@ -13,20 +13,22 @@ const PinPlane = styled.div`
     min-width: 900px;
 `;
 
-const Plane = () => {
+
+const Plane = (props) => {
     
   const [{ isOver }, drop] = useDrop({
     accept: ItemTypes.ImgItem,
+    drop: () => {console.log("item movido")},
     collect: monitor => ({
-      isOver: !!monitor.isOver(), 
-      component : monitor.
+      isOver: !!monitor.isOver(),
     })
   });
+  const uniqueid = require("uniqid");
     return (
         <PinPlane ref={drop}>
           {isOver ? console.log(isOver):console.log("nada")}
-            <ImgItem />
-            <ImgItem />
+            <ImgItem key={uniqueid()}/>
+            <ImgItem key={uniqueid()}/>
         </PinPlane>
     );
 }

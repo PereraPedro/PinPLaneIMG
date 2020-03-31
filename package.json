@@ -17,7 +17,7 @@
     "react-scripts": "3.4.1",
     "styled": "^1.0.0",
     "styled-components": "^5.0.1",
-    "uniqid": "5.2.0"
+    "uniqid": "^5.2.0"
   },
   "scripts": {
     "start": "react-scripts start",
