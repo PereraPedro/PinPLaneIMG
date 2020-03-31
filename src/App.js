@@ -9,8 +9,7 @@ function App() {
   return (
     <div className="App">
       <DndProvider backend={Backend}>
-        <Plane>
-        </Plane>
+        <Plane/>
       </DndProvider>
     </div>
   );

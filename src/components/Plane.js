@@ -4,6 +4,7 @@ import Backend from "react-dnd-html5-backend";
 import { useDrop } from "react-dnd";
 import styled  from 'styled-components';
 import ImgItem from './ImgItem';
+import ItemTypes from '../helpers/Constants';
 
 const PinPlane = styled.div`
     height: 100%;
@@ -15,17 +16,17 @@ const PinPlane = styled.div`
 const Plane = () => {
     
   const [{ isOver }, drop] = useDrop({
-    accept: ItemTypes.Image,
+    accept: ItemTypes.ImgItem,
     collect: monitor => ({
-      isOver: !!monitor.isOver()
+      isOver: !!monitor.isOver(), 
+      component : monitor.
     })
   });
     return (
-        <PinPlane>
-
+        <PinPlane ref={drop}>
+          {isOver ? console.log(isOver):console.log("nada")}
             <ImgItem />
             <ImgItem />
-
         </PinPlane>
     );
 }

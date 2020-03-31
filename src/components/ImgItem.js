@@ -1,16 +1,13 @@
 import React, { useState, useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 import { useDrag } from "react-dnd";
-const ItemTypes = {
-  ImgItem: "imageitem"
-};
+import ItemTypes from '../helpers/Constants';
 
 const ImgItem = () => {
   const [buttonState, setButtonState] = useState(false);
   const [currentIMG, setCurrentImg] = useState("");
   const [dropIMG, setDropIMG] = useState("");
   const [srcImg, setSrcImg] = useState("");
-
   const [{ isDragging }, drag] = useDrag({
     item: { type: ItemTypes.ImgItem },
     collect: monitor => ({
