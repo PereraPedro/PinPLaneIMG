@@ -1,6 +1,8 @@
 import React, { useState, useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 
+
+
 const Board = () => {
   const [buttonState, setButtonState] = useState(false);
   const [currentIMG, setCurrentImg] = useState("");
