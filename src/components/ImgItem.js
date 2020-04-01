@@ -3,7 +3,7 @@ import { useDropzone } from "react-dropzone";
 import { useDrag } from "react-dnd";
 import ItemTypes from '../helpers/Constants';
 
-const ImgItem = () => {
+const ImgItem = (props) => {
   const [buttonState, setButtonState] = useState(false);
   const [currentIMG, setCurrentImg] = useState("");
   const [dropIMG, setDropIMG] = useState("");
@@ -14,6 +14,8 @@ const ImgItem = () => {
       isDragging: !!monitor.isDragging()
     })
   });
+  
+  
 
   const onDrop = useCallback(acceptedFiles => {
     let string = acceptedFiles[0].name.split("\\");
@@ -45,8 +47,14 @@ const ImgItem = () => {
     setButtonState(true);
   };
 
+  const estilos = {
+    position: "absolute",
+    left:  `${props.position[0]}px`,
+    top: `${props.position[1]}px`,
+  };
+
   return (
-    <div className="card" ref={drag}>
+    <div className="card" ref={drag} style={estilos}>
       <div className="card-image">
         {!buttonState ? (
           <img
