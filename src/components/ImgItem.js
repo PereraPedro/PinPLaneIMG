@@ -4,12 +4,15 @@ import { useDrag } from "react-dnd";
 import ItemTypes from '../helpers/Constants';
 
 const ImgItem = (props) => {
+  
   const [buttonState, setButtonState] = useState(false);
   const [currentIMG, setCurrentImg] = useState("");
   const [dropIMG, setDropIMG] = useState("");
   const [srcImg, setSrcImg] = useState("");
   const [{ isDragging }, drag] = useDrag({
-    item: { type: ItemTypes.ImgItem },
+    item: { 
+      key: uniqueid(),
+      type: ItemTypes.ImgItem },
     collect: monitor => ({
       isDragging: !!monitor.isDragging()
     })
@@ -47,14 +50,15 @@ const ImgItem = (props) => {
     setButtonState(true);
   };
 
-  const estilos = {
+  /* const estilos = {
     position: "absolute",
-    left:  `${props.position[0]}px`,
-    top: `${props.position[1]}px`,
-  };
+    left:  `${props.position[1]}px`,
+    top: `${props.position[2]}px`,
+  }; */
 
+ 
   return (
-    <div className="card" ref={drag} style={estilos}>
+    <div className="card" ref={drag}>
       <div className="card-image">
         {!buttonState ? (
           <img

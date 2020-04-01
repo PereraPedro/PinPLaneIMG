@@ -15,20 +15,29 @@ const PinPlane = styled.div`
 `;
 
 const Plane = props => {
-  const [position, setPosition]= useState([]);
-
+  const [position, setPosition]= useState([[0,300,200],[1,500,200]]);
+  const ItemsArray=[[]];
+  const uniqueid = require("uniqid");
   const [dropTargetProps, drop] = useDrop({
     accept: ItemTypes.ImgItem,
     drop: (item, monitor) => {
-      setPosition([monitor.getSourceClientOffset().x, monitor.getSourceClientOffset().y])
+      console.log(item.key);
+    ItemsArray.forEach(i=>{
+      if(i[0]== item.key){
+      item =[item.key, monitor.getSourceClientOffset().x, monitor.getSourceClientOffset().y]
+    }
+    });
+      //setPosition([monitor.getSourceClientOffset().x, monitor.getSourceClientOffset().y])
+      setPosition(ItemsArray);
+      
     },
     collect: monitor => ({
-      isOver: !!monitor.isOver()     
+      isOver: !!monitor.isOver()  
     })
   });
   
  
-  const uniqueid = require("uniqid");
+  
 
   useEffect (()=>{
     setPosition(position);
@@ -36,8 +45,8 @@ const Plane = props => {
 
   return (
     <PinPlane ref={drop} >
-      <ImgItem position={position} /> 
-      <ImgItem position={position} /> 
+      <ImgItem position={position[0]} /> 
+      <ImgItem position={position[1]} /> 
     </PinPlane>
   );
 };
