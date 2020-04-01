@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { DndProvider } from 'react-dnd';
+import { DndProvider } from "react-dnd";
 import Backend from "react-dnd-html5-backend";
 import { useDrop } from "react-dnd";
-import styled  from 'styled-components';
-import ImgItem from './ImgItem';
-import ItemTypes from '../helpers/Constants';
-import Prueba from "./Prueba";
+import styled from "styled-components";
+import ImgItem from "./ImgItem";
+import ItemTypes from "../helpers/Constants";
 
 const PinPlane = styled.div`
   min-height: 1000px;
@@ -15,29 +14,31 @@ const PinPlane = styled.div`
 `;
 
 const Plane = props => {
-  const [position, setPosition]= useState([]);
+  const [position, setPosition] = useState([]);
 
   const [dropTargetProps, drop] = useDrop({
     accept: ItemTypes.ImgItem,
     drop: (item, monitor) => {
-      setPosition([monitor.getSourceClientOffset().x, monitor.getSourceClientOffset().y])
+      setPosition([
+        monitor.getSourceClientOffset().x,
+        monitor.getSourceClientOffset().y
+      ]);
     },
     collect: monitor => ({
-      isOver: !!monitor.isOver()     
+      isOver: !!monitor.isOver()
     })
   });
-  
- 
+
   const uniqueid = require("uniqid");
 
-  useEffect (()=>{
+  useEffect(() => {
     setPosition(position);
-  },[position])
+  }, [position]);
 
   return (
-    <PinPlane ref={drop} >
-      <ImgItem position={position} /> 
-      <ImgItem position={position} /> 
+    <PinPlane ref={drop}>
+      <ImgItem position={position} />
+      <ImgItem position={position} />
     </PinPlane>
   );
 };
