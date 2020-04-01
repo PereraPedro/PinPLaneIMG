@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { DndProvider } from "react-dnd";
-import Backend from "react-dnd-html5-backend";
+import React, { useState, useEffect, useReducer } from "react";
+
 import { useDrop } from "react-dnd";
 import styled from "styled-components";
 import ImgItem from "./ImgItem";
@@ -14,31 +13,56 @@ const PinPlane = styled.div`
 `;
 
 const Plane = props => {
-  const [position, setPosition] = useState([]);
+  const manageItems = (state, action) => {
+    // const uniqueid = require("uniqid");
+    switch (action.type) {
+      case "updatePosition":
+        state.forEach(element => {
+          if (element.id == action.payload) {
+            element.img = action.updatedPosition;
+          }
+        });
 
+        return state;
+
+      default:
+        return state;
+    }
+  };
+
+  const [state, dispatch] = useReducer(manageItems, [
+    {
+      id: 1,
+      img: [300, 200]
+    },
+    {
+      id: 2,
+      img: [500, 200]
+    }
+  ]);
+
+  //const uniqueid = require("uniqid");
   const [dropTargetProps, drop] = useDrop({
     accept: ItemTypes.ImgItem,
     drop: (item, monitor) => {
-      setPosition([
-        monitor.getSourceClientOffset().x,
-        monitor.getSourceClientOffset().y
-      ]);
+      dispatch({
+        type: "updatePosition",
+        payload: item.id,
+        updatedPosition: [
+          monitor.getSourceClientOffset().x,
+          monitor.getSourceClientOffset().y
+        ]
+      });
     },
     collect: monitor => ({
       isOver: !!monitor.isOver()
     })
   });
 
-  const uniqueid = require("uniqid");
-
-  useEffect(() => {
-    setPosition(position);
-  }, [position]);
-
   return (
     <PinPlane ref={drop}>
-      <ImgItem position={position} />
-      <ImgItem position={position} />
+      <ImgItem position={state[0]} />
+      <ImgItem position={state[1]} />
     </PinPlane>
   );
 };

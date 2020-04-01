@@ -1,21 +1,23 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { useDropzone } from "react-dropzone";
 import { useDrag } from "react-dnd";
-import ItemTypes from '../helpers/Constants';
+import ItemTypes from "../helpers/Constants";
 
-const ImgItem = (props) => {
+const ImgItem = props => {
   const [buttonState, setButtonState] = useState(false);
   const [currentIMG, setCurrentImg] = useState("");
   const [dropIMG, setDropIMG] = useState("");
   const [srcImg, setSrcImg] = useState("");
+
   const [{ isDragging }, drag] = useDrag({
-    item: { type: ItemTypes.ImgItem },
+    item: {
+      id: props.position.id,
+      type: ItemTypes.ImgItem
+    },
     collect: monitor => ({
       isDragging: !!monitor.isDragging()
     })
   });
-  
-  
 
   const onDrop = useCallback(acceptedFiles => {
     let string = acceptedFiles[0].name.split("\\");
@@ -49,8 +51,8 @@ const ImgItem = (props) => {
 
   const estilos = {
     position: "absolute",
-    left:  `${props.position[0]}px`,
-    top: `${props.position[1]}px`,
+    left: `${props.position.img[0]}px`,
+    top: `${props.position.img[1]}px`
   };
 
   return (
