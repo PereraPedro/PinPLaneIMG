@@ -1,18 +1,19 @@
-import React, { useState, useEffect, useReducer } from "react";
-
+import React, { useState, useEffect, useReducer, useContext } from "react";
 import { useDrop } from "react-dnd";
 import styled from "styled-components";
 import ImgItem from "./ImgItem";
 import ItemTypes from "../helpers/Constants";
+import { createContext } from "react";
 
-const PinPlane = styled.div`
-  min-height: 1000px;
-  min-width: 1000px;
-  border: 1px dotted black;
-  display: flex;
-`;
+const PinPlane = styled.div``;
 
 const Plane = props => {
+  const [planeHeight, setplaneHeight] = useState(1000);
+  const [planeWidth, setplaneWidth] = useState(1000);
+  // const contx = createContext(planeHeight, planeWidth);
+  // const Hg = useContext(contx);
+  // const Wd = useContext(contx);
+
   const manageItems = (state, action) => {
     // const uniqueid = require("uniqid");
     switch (action.type) {
@@ -20,6 +21,7 @@ const Plane = props => {
         state.forEach(element => {
           if (element.id == action.payload) {
             element.img = action.updatedPosition;
+            //     console.log(element);
           }
         });
 
@@ -53,14 +55,29 @@ const Plane = props => {
           monitor.getSourceClientOffset().y
         ]
       });
+      // console.log(state);
+    },
+    hover: (item, monitor) => {
+      if (monitor.getSourceClientOffset().x >= planeWidth - 300) {
+        setplaneWidth(planeWidth + 5);
+      } else if (monitor.getSourceClientOffset().y >= planeHeight - 300) {
+        setplaneHeight(planeHeight + 5);
+      }
     },
     collect: monitor => ({
-      isOver: !!monitor.isOver()
+      isOver: !!monitor.isOver(),
+      getSize: monitor.getClientOffset()
     })
   });
 
+  const styles = {
+    width: `${planeWidth}px`,
+    height: `${planeHeight}px`,
+    position: "relative",
+    border: "1px dotted black"
+  };
   return (
-    <PinPlane ref={drop}>
+    <PinPlane ref={drop} style={styles}>
       <ImgItem position={state[0]} />
       <ImgItem position={state[1]} />
     </PinPlane>

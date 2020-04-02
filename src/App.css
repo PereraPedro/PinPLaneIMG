@@ -1,6 +1,9 @@
+.App {
+  margin: 0 auto;
+}
+
 .card {
   display: flex;
-  margin: 0 auto;
   margin-top: 40px;
   border: 2px solid grey;
   width: 300px;
@@ -68,6 +71,6 @@ input {
   width: 200px;
 }
 
-.fileSelectors{
+.fileSelectors {
   margin-top: 25px;
 }

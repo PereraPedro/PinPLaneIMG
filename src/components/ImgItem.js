@@ -9,15 +9,20 @@ const ImgItem = props => {
   const [dropIMG, setDropIMG] = useState("");
   const [srcImg, setSrcImg] = useState("");
 
-  const [{ isDragging }, drag] = useDrag({
+  const [{ isDragging, getSize }, drag] = useDrag({
     item: {
       id: props.position.id,
       type: ItemTypes.ImgItem
     },
     collect: monitor => ({
-      isDragging: !!monitor.isDragging()
+      isDragging: !!monitor.isDragging(),
+      getSize: monitor.getClientOffset()
     })
   });
+
+  useEffect(() => {
+    console.log(getSize);
+  }, [isDragging]);
 
   const onDrop = useCallback(acceptedFiles => {
     let string = acceptedFiles[0].name.split("\\");
