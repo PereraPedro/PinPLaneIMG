@@ -3,8 +3,8 @@
   margin: 0 auto;
   margin-top: 40px;
   border: 2px solid grey;
-  width: 300px;
-  height: 300px;
+  width: 200px;
+  height: 200px;
   position: relative;
   align-items: center;
 }
@@ -31,8 +31,8 @@
   align-content: center;
   align-items: center;
   margin: 0 auto;
-  width: 200px;
-  height: 250px;
+  width: 100px;
+  height: 150px;
   display: flex;
 }
 .material-icons {
@@ -48,8 +48,8 @@
 .imgcontainer {
   border: 1.5px gray;
   border-style: dashed;
-  height: 200px;
-  width: 200px;
+  height: 100px;
+  width: 100px;
   margin: 0 auto;
   background-color: rgba(170, 157, 168, 0.64);
   align-content: center;
@@ -65,9 +65,9 @@ img {
 }
 
 input {
-  width: 200px;
+  width: 100px;
 }
 
-.fileSelectors{
+.fileSelectors {
   margin-top: 25px;
 }

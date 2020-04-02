@@ -8,6 +8,7 @@ import ItemTypes from "../helpers/Constants";
 const PinPlane = styled.div`
   min-height: 1000px;
   min-width: 1000px;
+  margin: 0 auto;
   border: 1px dotted black;
   display: flex;
 `;
